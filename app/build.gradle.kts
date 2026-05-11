@@ -38,6 +38,7 @@ android {
     }
     buildFeatures{
         viewBinding = true
+        dataBinding = true
     }
 }
 
@@ -63,4 +64,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.razorpay:checkout:1.6.33")
+}
+
+tasks.named("preBuild") {
+    dependsOn(rootProject.tasks.named("startApi"))
 }

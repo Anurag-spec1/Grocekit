@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.hustlers.grocekit.viewmodel.CheckoutViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Toolbar -->
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/primary"
+            android:title="Checkout"
+            android:titleTextColor="@android:color/white"
+            app:navigationIcon="@drawable/ic_back" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Delivery Address Section -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Delivery Details"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Name Input -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/nameLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Full Name"
+                    app:endIconMode="clear_text"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/nameInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:text="@={viewModel.name}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Phone Input -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/phoneLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Phone Number"
+                    android:layout_marginTop="12dp"
+                    app:endIconMode="clear_text"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/phoneInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="phone"
+                        android:text="@={viewModel.phone}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Address Input -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/addressLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Delivery Address"
+                    android:layout_marginTop="12dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/addressInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:gravity="top"
+                        android:inputType="textMultiLine"
+                        android:text="@={viewModel.address}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Payment Method Section -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Payment Method"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Cash on Delivery Option -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/codCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardElevation="2dp"
+                    app:cardCornerRadius="8dp"
+                    app:strokeWidth="2dp"
+                    app:strokeColor="@{viewModel.paymentMethod == `COD` ? @color/primary : @android:color/transparent}"
+                    android:onClick="@{() -> viewModel.onPaymentMethodChanged(`COD`)}">
+
+                    <RadioButton
+                        android:id="@+id/codRadio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Cash on Delivery"
+                        android:textSize="16sp"
+                        android:checked="@{viewModel.paymentMethod == `COD`}"
+                        android:padding="16dp"
+                        android:clickable="false" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Online Payment Option -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/onlineCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:cardElevation="2dp"
+                    app:cardCornerRadius="8dp"
+                    app:strokeWidth="2dp"
+                    app:strokeColor="@{viewModel.paymentMethod == `ONLINE` ? @color/primary : @android:color/transparent}"
+                    android:onClick="@{() -> viewModel.onPaymentMethodChanged(`ONLINE`)}">
+
+                    <RadioButton
+                        android:id="@+id/onlineRadio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Pay Online (Razorpay)"
+                        android:textSize="16sp"
+                        android:checked="@{viewModel.paymentMethod == `ONLINE`}"
+                        android:padding="16dp"
+                        android:clickable="false" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Order Summary -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Order Summary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="12dp" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardElevation="2dp"
+                    app:cardCornerRadius="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Total Amount"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/totalAmountText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text='@{@string/price_format(viewModel.totalAmount)}'
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/primary" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Estimated delivery: 30-45 mins"
+                            android:textSize="12sp"
+                            android:textColor="@android:color/darker_gray"
+                            android:layout_marginTop="4dp" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Place Order Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/placeOrderButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="24dp"
+                    android:text="Place Order"
+                    android:textSize="16sp"
+                    app:cornerRadius="8dp"
+                    android:backgroundTint="@color/primary" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- Loading Progress -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_margin="16dp" />
+
+    </LinearLayout>
+</layout>
