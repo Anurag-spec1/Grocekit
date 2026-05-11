@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "473410472797",
+    "project_id": "grocekit-8ed8b",
+    "storage_bucket": "grocekit-8ed8b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:473410472797:android:5e35da850b7d0f7d79b6b4",
+        "android_client_info": {
+          "package_name": "com.hustlers.grocekit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChMt5lCkIo6kGImpSd5yiDok4vpa9vUhE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
